@@ -5,7 +5,7 @@ on:
     branches:
       - master
 jobs:
-  Package Autoscript:
+  Package_Autoscript:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
