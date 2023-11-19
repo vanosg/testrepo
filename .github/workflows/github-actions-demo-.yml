@@ -1,7 +1,7 @@
 name: Create autoscript package
 run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
 on:
-  pull-request:
+  pull_request:
     branches:
       - master
 jobs:
