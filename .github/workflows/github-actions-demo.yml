@@ -30,7 +30,8 @@ jobs:
             echo "$dir was changed"
             echo "anything change? ${{ steps.changed-files-dir-names.outputs.any_modified }}"
           done
-      - name: create zip artifact
+      - name: Create zip artifact
+        id: create-zip
         if: ${{ steps.changed-files-dir-names.outputs.any_modified }} == 'true'
         uses: ksm2/archive-action@v1
         with:
@@ -38,3 +39,8 @@ jobs:
           root-directory: ${{ steps.changed-files-dir-names.outputs.all_changed_files }}
           name: ${{ steps.changed-files-dir-names.outputs.all_changed_files }}
           include: "*.(json|tcl)"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: ${{ steps.create-zip.outputs.name }}
+          path: ${{ steps.create-zip.outputs.path }}
