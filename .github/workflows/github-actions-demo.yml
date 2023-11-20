@@ -5,8 +5,9 @@ on:
     branches:
       - master
 jobs:
-  Package_Autoscript:
+  Check_For_Changes:
     runs-on: ubuntu-latest
+    env: 
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,4 +29,14 @@ jobs:
         run: |
           for dir in in ${{ steps.changed-files-dir-names.outputs.all_changed_files }}; do
             echo "$dir was changed"
+            echo "DIRNAME=$dir" >> $GITHUB_ENV
+            echo "set $DIRNAME"
           done
+      - name: create zip artifact
+        if: steps.changed-files-dir-names == 'true'
+        uses: ksm2/archive-action@v1
+        with:
+          format: "tar.gz"
+          root-directory: $DIRNAME
+          name: $DIRNAME
+          include: "*.(json|tcl)"
