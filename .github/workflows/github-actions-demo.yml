@@ -8,7 +8,6 @@ jobs:
   Package_Autoscript:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -21,3 +20,9 @@ jobs:
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
+      - name: List changed directories
+        id: changed-files-dir-names
+        uses: tj-actions/changed-files@v40
+        with:
+          dir_names: "true"
+            
