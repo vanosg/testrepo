@@ -28,15 +28,13 @@ jobs:
         run: |
           for dir in ${{ steps.changed-files-dir-names.outputs.all_changed_files }}; do
             echo "$dir was changed"
-            echo "DIRNAME=$dir" >> $GITHUB_ENV
-            echo "set ${{ DIRNAME }}"
-            echo "${{ steps.changed-files-dir-names.outputs.any_modified }}"
+            echo "anything change? ${{ steps.changed-files-dir-names.outputs.any_modified }}"
           done
       - name: create zip artifact
         if: ${{ steps.changed-files-dir-names.outputs.any_modified }} == 'true'
         uses: ksm2/archive-action@v1
         with:
           format: "tar.gz"
-          root-directory: ${{ $DIRNAME }}
-          name: ${{ DIRNAME }}
+          root-directory: ${{ steps.changed-files-dir-names.outputs.all_changed_files }}
+          name: ${{ steps.changed-files-dir-names.outputs.all_changed_files }}
           include: "*.(json|tcl)"
