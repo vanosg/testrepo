@@ -26,7 +26,7 @@ jobs:
           dir_names: "true"
       - name: List changed directories
         run: |
-          for dir in in ${{ steps.changed-files-dir-names.outputs.all_changed_files }}; do
+          for dir in ${{ steps.changed-files-dir-names.outputs.all_changed_files }}; do
             echo "$dir was changed"
             echo "DIRNAME=$dir" >> $GITHUB_ENV
             echo "set ${{ DIRNAME }}"
