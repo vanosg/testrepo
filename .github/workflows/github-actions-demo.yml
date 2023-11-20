@@ -32,7 +32,7 @@ jobs:
             echo "set $DIRNAME"
           done
       - name: create zip artifact
-        if: steps.changed-files-dir-names == 'true'
+        if: steps.changed-files-dir-names.outputs.any_modified == 'true'
         uses: ksm2/archive-action@v1
         with:
           format: "tar.gz"
